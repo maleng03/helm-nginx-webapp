@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Kubernetes
+*.log
+
+# Helm packaged charts
+*.tgz
+
+# VS Code
+.vscode/
+
+# Env files
+.env
