@@ -1,0 +1,56 @@
+replicaCount: 2
+
+
+image:
+  repository: nginx
+  tag: '1.25'
+  pullPolicy: IfNotPresent
+
+
+service:
+  type: ClusterIP
+  port: 80
+
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: nginx-webapp.local
+      paths:
+        - path: /
+          pathType: Prefix
+
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 15
+
+serviceAccount:
+  create: false
+  automount: true
+  annotations: {}
+  name: ""
+
+  httpRoute:
+  enabled: false
